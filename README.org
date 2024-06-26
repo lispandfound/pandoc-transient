@@ -1,0 +1,20 @@
+#+TITLE: Pandoc Transient
+
+A transient interface to [[https://pandoc.org/][pandoc]]. Provides a single entry-point for
+converting a file (by default the current file) between various file
+formats using pandoc.
+
+To include pandoc transient in your setup (assuming you have [[https://github.com/slotThe/vc-use-package][vc-use-package]] and run emacs <=29):
+#+BEGIN_SRC emacs-lisp
+  (use-package pandoc-transient
+    :vc (:fetcher github :repo "lispandfound/pandoc-transient")
+    :bind (("C-c P" . pandoc-convert-transient)))
+#+END_SRC
+
+By default, the output file format is =pdf=, and the default input
+format is guessed from your current major mode. Customise the
+variables =pandoc-transient-default-output-format= and
+=pandoc-transient-default-output-file-extension= to change the default
+output file formats.
+
+

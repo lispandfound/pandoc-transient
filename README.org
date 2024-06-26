@@ -4,6 +4,8 @@ A transient interface to [[https://pandoc.org/][pandoc]]. Provides a single entr
 converting a file (by default the current file) between various file
 formats using pandoc.
 
+[[file:showcase.png]]
+
 To include pandoc transient in your setup (assuming you have [[https://github.com/slotThe/vc-use-package][vc-use-package]] and run emacs <=29):
 #+BEGIN_SRC emacs-lisp
   (use-package pandoc-transient

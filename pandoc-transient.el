@@ -200,7 +200,9 @@
     :init-value (lambda (obj) (oset obj value pandoc-transient-default-output-format)) :always-read t)
    ("o" "Output File" "--output="
     :reader transient-read-file 
-    :init-value (lambda (obj) (oset obj value (concat (file-name-sans-extension (buffer-file-name)) (s-concat "." pandoc-transient-default-output-file-extension))))
+    :init-value (lambda (obj)
+                  (when (buffer-file-name)
+                    (oset obj value (concat (file-name-sans-extension (buffer-file-name)) (s-concat "." pandoc-transient-default-output-file-extension)))))
     :always-read t)]
   ["Command"
    ("<return>" "Convert this file (C-u to prompt for file)." pandoc-transient--convert-this-file :transient nil)
@@ -211,7 +213,7 @@
   :transient 'transient--do-call
   (interactive "P")
   (let ((args (transient-args (oref transient-current-prefix command)))
-        (input-file-path (if the-prefix-arg (read-file-name "Input File: ") (buffer-file-name))))
+        (input-file-path (if (or (null (buffer-file-name)) the-prefix-arg) (read-file-name "Input File: ") (buffer-file-name))))
     (async-shell-command (s-concat pandoc-transient-executable " " (s-join " " (cons input-file-path args))))))
 
 ;;;###autoload
